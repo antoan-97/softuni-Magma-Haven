@@ -1,86 +1,98 @@
-.editPage {
-    margin-top: 130px;
+main {
+    padding-top: 20px;
 }
 
-.editPage {
-	display: block;
-	background-color: rgb(255, 255, 255);
-	border: 1px solid rgb(156, 152, 152);
-	padding: 40px;
-	margin-bottom: 15px;
-	border-radius: 3px;
-	border: 1px solid;
-	box-shadow: 1px 2px 3px #888888;
-	width: 400px;
+#edit-container {
+    color: white;
+    width: 360px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    background-color: #dbd1c1;
+    border: 2px solid black;
+    border-radius: 20px;
+    color: black;
 }
 
-.editPage h2 {
-	text-align: center;
-	margin-top: -10px;
-	text-shadow: 1px 1px rgb(65, 63, 63);
+#edit-container h1 {
+    text-align: center;
+    padding-top: 15px;
+    color: black;
+
 }
 
-.editPage label {
-	display: none;
+#edit-container h4 {
+    margin-top: 10px;
+    text-align: center;
+    color: #ff960b;
 }
 
-.editPage input {
-	background-color: rgb(240, 230, 230);
-	border: 0.1px solid rgb(186, 184, 184);
-	border-radius: 3px;
-	height: 30px;
-	padding-left: 2px;
-	margin-top: 30px;
-	width: 320px;
-	font-size: 16px;
+#edit-container form {
+    width: 300px;
 }
 
-.editPage textarea {
-	background-color: rgb(240, 230, 230);
-	border: 0.1px solid rgb(186, 184, 184);
-	border-radius: 3px;
-	height: 100px;
-	padding-left: 2px;
-	margin-top: 30px;
-	width: 320px;
-	font-size: 16px;
-	resize: none;
-	font-family:Arial, Helvetica, sans-serif;
+#edit-container form label {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 18px;
 }
 
-.editPage button {
-	color: white;
-	font-weight: bold;
-	font-size: 16px;
-	border: none;
-	width: 100%;
-	border-radius: 3px;
-	margin-top: 30px;
-	height: 30px;
-    box-shadow: 2px 3px #888888;
-    cursor: pointer;
+#edit-container form input {
+    width: 320px;
+    height: 30px;
+    padding-left: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 8px;
+    outline: none;
+    background-color: whitesmoke;
 }
 
-.editPage a {
-	color: white;
+#edit-container input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-.editPage label {
-	display: initial !important;
-	margin-top: 12px;
-	margin-right: 5px;
-	white-space: nowrap;
+#edit-container input[type=number] {
+    -moz-appearance: textfield;
 }
 
-.edit-photo input {
-	padding: 3px;
+#edit-container form textarea {
+    width: 320px;
+    height: 80px;
+    padding-left: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 8px;
+    outline: none;
+    background-color: whitesmoke;
+    resize: none;
 }
 
-.edit-btn {
-	background-color: rgb(0, 102, 255);
-}
-
-
-.edit-delete button:hover {
+#edit-container select {
+    outline: 0;
+    border: 0;
     box-shadow: none;
+    flex: 1;
+    padding: 0 1em;
+    cursor: pointer;
+    height: 20px;
+    font-weight: bold;
+    border-radius: 20px;
+    width: 320px;
+    background-color: whitesmoke;
+    color: black;
+}
+
+#edit-container input[type="submit"] {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background-color: #D1491C;
+    color: white;
+    font-size: 15px;
+    margin-bottom: 30px;
 }

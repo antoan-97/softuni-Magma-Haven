@@ -1,11 +1,7 @@
-main {
-    padding-top: 50px;
-}
-
-.login-box {
+.register-box {
     color: white;
     width: 360px;
-    height: 330px;
+    height: 500px;
     margin: auto;
     background-color: #dbd1c1;
     border: 2px solid black;
@@ -13,29 +9,29 @@ main {
     color: black;
 }
 
-.login-box h1 {
+.register-box h1 {
     text-align: center;
     padding-top: 15px;
 }
 
-h4 {
+.register-box h4 {
     margin-top: 10px;
     text-align: center;
 }
 
-form {
+.register-box form {
     width: 300px;
     margin-left: 20px;
 }
 
-form label {
+.register-box form label {
     display: flex;
     margin-top: 20px;
     margin-bottom: 5px;
     font-size: 18px;
 }
 
-form input {
+.register-box form input {
     width: 320px;
     height: 30px;
     padding-left: 7px;
@@ -45,23 +41,23 @@ form input {
     outline: none;
 }
 
-input[type="submit"] {
+.register-box input[type="submit"] {
     width: 320px;
     height: 35px;
-    margin-top: 20px;
+    margin-top: 30px;
     border: none;
     background-color: #D1491C;
     color: white;
     font-size: 15px;
 }
 
-.login-box p {
+.register-box p {
     text-align: center;
     padding-top: 20px;
     font-size: 15px;
 
 }
 
-.login-box p>a {
+.register-box p>a {
     color: #D1491C;
 }
