@@ -53,15 +53,15 @@ router.get('/:photoId/edit', async(req,res) =>{
 });
 
 
-// router.post('/:photoId/edit', async (req, res) => {
-//     const photoId = req.params.photoId
-//     const photoData = req.body;
-//     try {
-//         await photoManager.edit(photoId, photoData);
-//         res.redirect(`/photos/${photoId}/details`);
-//     } catch (err) {
-//         res.render('photos/edit', { error: getErrorMessage(err)  });
-//     }
-// })
+router.post('/:photoId/edit', async (req, res) => {
+    const photoId = req.params.photoId
+    const photoData = req.body;
+    try {
+        await photoManager.edit(photoId, photoData);
+        res.redirect(`/photos/${photoId}/details`);
+    } catch (err) {
+        res.render('photos/edit', { error: 'Unsuccessful edit photo!'  });
+    }
+})
 
 module.exports = router;
