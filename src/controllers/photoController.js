@@ -32,7 +32,20 @@ router.get('/:photoId/details', async (req, res) => {
 
     const photo = await photoManager.getOne(photoId).populate('voteList.user').lean();
     const isOwner = req.user?._id == photo.owner?._id;
-    res.render('photos/details', { photo, isOwner })
+    const hasVoted = photo.voteList.some(vote => vote.equals(req.user?._id));
+    res.render('photos/details', { photo, isOwner, hasVoted })
 })
+
+
+// router.post('/:photoId/edit', async (req, res) => {
+//     const photoId = req.params.photoId
+//     const photoData = req.body;
+//     try {
+//         await photoManager.edit(photoId, photoData);
+//         res.redirect(`/photos/${photoId}/details`);
+//     } catch (err) {
+//         res.render('photos/edit', { error: getErrorMessage(err)  });
+//     }
+// })
 
 module.exports = router;
