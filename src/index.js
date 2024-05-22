@@ -9,7 +9,7 @@ const { auth } = require('./middlewares/authMiddleware');
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/petstagram')
+mongoose.connect('mongodb://127.0.0.1:27017/magma-haven')
 .then(() => console.log('DB Connected'))
 .catch(err => console.log('DB Error,', err.message));
 
