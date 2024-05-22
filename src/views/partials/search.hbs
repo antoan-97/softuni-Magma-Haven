@@ -1,45 +1,43 @@
-  <main>
-        <section class="volcano-search">
-            <h1>Search</h1>
+<main>
+    <section class="volcano-search">
+        <h1>Search</h1>
 
-            <form class="search-form" action="/photos/search" method="GET">
-                <input type="text" class="search-volcano" name="name" placeholder="Search by Name...">
-                <select id="type" name="typeVolcano">
-                    <option value="Supervolcanoes">Supervolcanoes</option>
-                    <option value="Submarine">Submarine</option>
-                    <option value="Subglacial">Subglacial</option>
-                    <option value="Mud">Mud</option>
-                    <option value="Stratovolcanoes">Stratovolcanoes</option>
-                    <option value="Shield">Shield</option>
-                </select>
-                <button type="submit" class="btn-search">Search</button>
-            </form>
+        <form class="search-form" action="/photos/search" method="GET">
+            <input type="text" class="search-volcano" name="name" placeholder="Search by Name...">
+            <select id="type" name="typeVolcano">
+                <option value="">-- Select Volcano Type --</option>
+                <option value="Supervolcanoes">Supervolcanoes</option>
+                <option value="Submarine">Submarine</option>
+                <option value="Subglacial">Subglacial</option>
+                <option value="Mud">Mud</option>
+                <option value="Stratovolcanoes">Stratovolcanoes</option>
+                <option value="Shield">Shield</option>
+            </select>
+            <button type="submit" class="btn-search">Search</button>
+        </form>
 
-            {{#if results}}
-         <div class="search-result">
-                 {{#each results}}
-                <div class="search-list">
-               
-                    <div class="volcano">
-                        <div class="volcano-img">
-                            <img src="{{this.image}}">
+        {{#if results.length}}
+            <div class="search-result">
+                {{#each results}}
+                    <div class="search-list">
+                        <div class="volcano">
+                            <div class="volcano-img">
+                                <img src="{{this.image}}" alt="{{this.name}}">
+                            </div>
+                            <div class="volcano-info">
+                                <h1>{{this.name}}</h1>
+                                <p><span>Location: </span>{{this.location}}</p>
+                                <p><span>Volcano Type: </span>{{this.typeVolcano}}</p>
+                            </div>
+                            <a href="/photos/{{this._id}}/details" class="btn-details">Details</a>
                         </div>
-                        <div class="volcano-info">
-                            <h1>{{this.name}}</h1>
-                            <p><span>Location: </span>{{this.location}}</p>
-                            <p><span>Volcano Type: </span>{{this.typeVolcano}}</p>
-                        </div>
-
-                        <a href="/photos/{{this._id}}/details" class="btn-details">Details</a>
                     </div>
-                </div>
                 {{/each}}
-
-            </div> 
-            
+            </div>
+        {{else}}
             <div class="no-match">
                 <p>No match was found!</p>
             </div>
-            {{/if}}
-        </section>
-    </main>
+        {{/if}}
+    </section>
+</main>
