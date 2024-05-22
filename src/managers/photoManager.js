@@ -10,3 +10,7 @@ exports.getOne = (photoId) => Photo.findById(photoId).populate('owner');
 exports.delete = (photoId) => Photo.findByIdAndDelete(photoId);
 
 exports.edit = (photoId,photoData) => Photo.findByIdAndUpdate(photoId, photoData);
+
+exports.search = (query) => {
+    return Photo.find(query).lean();
+};
