@@ -65,8 +65,23 @@ router.post('/:photoId/edit', async (req, res) => {
 })
 
 router.get('/search', async (req, res) => {
+    const { name, typeVolcano } = req.query;
 
-        res.render('partials/search');
+    let query = {};
+    if (name) {
+        query.name = new RegExp(name, 'i'); // Case-insensitive regex search
+    }
+    if (typeVolcano) {
+        query.typeVolcano = typeVolcano;
+    }
+
+    try {
+        const results = await photoManager.search(query);
+        res.render('partials/search', { results }); // Render the 'search.hbs' template
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
  
 });
 
