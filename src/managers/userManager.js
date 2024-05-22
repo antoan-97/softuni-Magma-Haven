@@ -15,8 +15,8 @@ exports.register = async (userData) => {
     return token;
 };
 
-exports.login = async (username, password) => {
-    const user = await User.findOne({ username });
+exports.login = async (email, password) => {
+    const user = await User.findOne({ email });
     if (!user) {
         throw new Error('Invaid username or password!')
     }
