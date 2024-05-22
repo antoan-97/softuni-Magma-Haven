@@ -8,6 +8,10 @@ router.get('/', async (req, res) => {
     res.render('photos', { photos })
 })
 
+router.get('/create', (req, res) => {
+    res.render('photos/create');
+});
+
 router.post('/create', async (req, res) => {
     const photoData = {
         ...req.body,
