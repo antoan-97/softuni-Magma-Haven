@@ -64,4 +64,10 @@ router.post('/:photoId/edit', async (req, res) => {
     }
 })
 
+router.get('/search', async (req, res) => {
+
+        res.render('partials/search');
+ 
+});
+
 module.exports = router;
