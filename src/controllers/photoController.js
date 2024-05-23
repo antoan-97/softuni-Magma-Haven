@@ -1,5 +1,6 @@
 const { getErrorMessage } = require('../utils/errorHelper');
 const photoManager = require('../managers/photoManager');
+const Photo = require('../models/Photo');
 
 const router = require('express').Router();
 
@@ -29,11 +30,14 @@ router.post('/create', async (req, res) => {
 
 router.get('/:photoId/details', async (req, res) => {
     const photoId = req.params.photoId;
+    const { user } = req;
+    console.log(photoId);
 
-    const photo = await photoManager.getOne(photoId).populate('voteList.user').lean();
+    const photo = await photoManager.getOne(photoId).lean();
     const isOwner = req.user?._id == photo.owner?._id;
-    const hasVoted = photo.voteList.some(vote => vote.equals(req.user?._id));
-    res.render('photos/details', { photo, isOwner, hasVoted })
+    const hasVoted = photo.voteList?.some((v) => v?.toString() === user?._id);
+    const votesCount = photo.voteList.length
+    res.render('photos/details', { photo, isOwner, hasVoted, votesCount })
 })
 
 router.get('/:photoId/delete', async (req, res) => {
@@ -46,7 +50,7 @@ router.get('/:photoId/delete', async (req, res) => {
     }
 })
 
-router.get('/:photoId/edit', async(req,res) =>{
+router.get('/:photoId/edit', async (req, res) => {
     const photoId = req.params.photoId;
     const photo = await photoManager.getOne(photoId).lean();
     res.render('photos/edit', { photo });
@@ -60,9 +64,11 @@ router.post('/:photoId/edit', async (req, res) => {
         await photoManager.edit(photoId, photoData);
         res.redirect(`/photos/${photoId}/details`);
     } catch (err) {
-        res.render('photos/edit', { error: 'Unsuccessful edit photo!'  });
+        res.render('photos/edit', { error: 'Unsuccessful edit photo!' });
     }
 })
+
+
 
 router.get('/search', async (req, res) => {
     const { name, typeVolcano } = req.query;
@@ -82,7 +88,24 @@ router.get('/search', async (req, res) => {
         console.error(err);
         res.status(500).send('Server Error');
     }
- 
+});
+
+
+
+router.get('/:photoId/vote', async (req, res) => {
+    const photoId = req.params.photoId;
+    const userId = req.user._id;
+
+    try {
+        await photoManager.vote(photoId, userId);
+        res.redirect(`/photos/${photoId}/details`);
+    } catch (err) {
+        res.render('404', { error: getErrorMessage(err) })
+    }
 });
 
 module.exports = router;
+
+
+
+
