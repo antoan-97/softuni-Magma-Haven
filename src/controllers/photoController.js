@@ -43,17 +43,13 @@ router.post('/create', isAuth, async (req, res) => {
 router.get('/:photoId/details', async (req, res) => {
     const photoId = req.params.photoId;
     const { user } = req;
-
-    try {
+   
         const photo = await photoManager.getOne(photoId).lean();
         const isOwner = req.user?._id == photo.owner?._id;
         const hasVoted = photo.voteList?.some((v) => v?.toString() === user?._id);
         const votesCount = photo.voteList.length
-        res.render('photos/details', { photo, isOwner, hasVoted, votesCount })
-    } catch (err) {
-        res.render('404', { error: getErrorMessage(err) });
-    }
-
+        res.render('photos/details', { photo, isOwner, hasVoted, votesCount, user })
+   
 })
 
 router.get('/:photoId/delete', isAuth, async (req, res) => {
@@ -113,7 +109,7 @@ router.get('/search', async (req, res) => {
 
 
 
-router.get('/:photoId/vote', isAuth, async (req, res) => {
+router.get('/:photoId/vote', async (req, res) => {
     const photoId = req.params.photoId;
     const userId = req.user._id;
 
@@ -121,7 +117,7 @@ router.get('/:photoId/vote', isAuth, async (req, res) => {
         await photoManager.vote(photoId, userId);
         res.redirect(`/photos/${photoId}/details`);
     } catch (err) {
-        res.render('404', { error: getErrorMessage(err) });
+        res.render('404', { error: getErrorMessage(err) })
     }
 });
 
