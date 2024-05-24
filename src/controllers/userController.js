@@ -4,6 +4,7 @@ const { getErrorMessage } = require('../utils/errorHelper');
 
 
 router.get('/login', (req, res) => {
+
     res.render('users/login');
 });
 
@@ -15,12 +16,13 @@ router.post('/login', async (req, res) => {
         res.cookie('token', token);
         res.redirect('/');
     } catch (err) {
-        res.render('users/login', { error:  getErrorMessage(err), email });
+        res.render('users/login', { error: getErrorMessage(err), email });
     }
-   
+
 });
 
 router.get('/register', (req, res) => {
+
     res.render('users/register');
 });
 
@@ -30,16 +32,17 @@ router.post('/register', async (req, res) => {
     try {
         const token = await userManager.register({ username, email, password, repeatPassword });
 
-        res.cookie('token',token)
+        res.cookie('token', token)
         res.redirect('/');
     } catch (err) {
-        res.render('users/register', { error:getErrorMessage(err),  username, email, password, repeatPassword  })
+        res.render('users/register', { error: getErrorMessage(err), username, email, password, repeatPassword })
     }
 });
 
-router.get('/logout', (req,res) =>{
+router.get('/logout', (req, res) => {
+
     res.clearCookie('token');
     res.redirect('/');
-})
+});
 
 module.exports = router

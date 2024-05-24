@@ -7,12 +7,22 @@ const Photo = require('../models/Photo');
 const router = require('express').Router();
 
 router.get('/', async (req, res) => {
-    const photos = await photoManager.getAll().lean();
-    res.render('photos', { photos })
+    try {
+        const photos = await photoManager.getAll().lean();
+        res.render('photos', { photos })
+    } catch (err) {
+        res.render('404', { error: getErrorMessage(err) });
+    }
+
 })
 
 router.get('/create', isAuth, (req, res) => {
-    res.render('photos/create');
+    try {
+        res.render('photos/create');
+    } catch (err) {
+        res.render('404', { error: getErrorMessage(err) });
+    }
+
 });
 
 router.post('/create', isAuth, async (req, res) => {
@@ -33,13 +43,17 @@ router.post('/create', isAuth, async (req, res) => {
 router.get('/:photoId/details', async (req, res) => {
     const photoId = req.params.photoId;
     const { user } = req;
-    console.log(photoId);
 
-    const photo = await photoManager.getOne(photoId).lean();
-    const isOwner = req.user?._id == photo.owner?._id;
-    const hasVoted = photo.voteList?.some((v) => v?.toString() === user?._id);
-    const votesCount = photo.voteList.length
-    res.render('photos/details', { photo, isOwner, hasVoted, votesCount })
+    try {
+        const photo = await photoManager.getOne(photoId).lean();
+        const isOwner = req.user?._id == photo.owner?._id;
+        const hasVoted = photo.voteList?.some((v) => v?.toString() === user?._id);
+        const votesCount = photo.voteList.length
+        res.render('photos/details', { photo, isOwner, hasVoted, votesCount })
+    } catch (err) {
+        res.render('404', { error: getErrorMessage(err) });
+    }
+
 })
 
 router.get('/:photoId/delete', isAuth, async (req, res) => {
@@ -54,8 +68,14 @@ router.get('/:photoId/delete', isAuth, async (req, res) => {
 
 router.get('/:photoId/edit', isAuth, async (req, res) => {
     const photoId = req.params.photoId;
-    const photo = await photoManager.getOne(photoId).lean();
-    res.render('photos/edit', { photo });
+
+    try {
+        const photo = await photoManager.getOne(photoId).lean();
+        res.render('photos/edit', { photo });
+    } catch (error) {
+        res.render('404', { error: getErrorMessage(err) });
+    }
+
 });
 
 
@@ -87,8 +107,7 @@ router.get('/search', async (req, res) => {
         const results = await photoManager.search(query);
         res.render('partials/search', { results }); // Render the 'search.hbs' template
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        res.render('404', { error: getErrorMessage(err) });
     }
 });
 
@@ -102,7 +121,7 @@ router.get('/:photoId/vote', isAuth, async (req, res) => {
         await photoManager.vote(photoId, userId);
         res.redirect(`/photos/${photoId}/details`);
     } catch (err) {
-        res.render('404', { error: getErrorMessage(err) })
+        res.render('404', { error: getErrorMessage(err) });
     }
 });
 
