@@ -4,15 +4,15 @@
                 <h1>Create Volcano Wiki</h1>
                 <form method="POST">
                     <label>Name:</label>
-                    <input type="text" id="name" name="name" placeholder="...">
+                    <input type="text" id="name" name="name" value="{{photoData.name}}" placeholder="...">
                     <label>Location:</label>
-                    <input type="text" id="location" name="location" placeholder="...">
+                    <input type="text" id="location" name="location" value="{{photoData.location}}" placeholder="...">
                     <label>Elevation:</label>
-                    <input type="number" id="elevations" name="elevation" placeholder="...">
+                    <input type="number" id="elevations" name="elevation" value="{{photoData.elevation}}" placeholder="...">
                     <label>Year of Last Eruption:</label>
-                    <input type="number" id="last-year-eruption" name="lastEruption" placeholder="...">
+                    <input type="number" id="last-year-eruption" name="lastEruption" value="{{photoData.lastEruption}}" placeholder="...">
                     <label>Image:</label>
-                    <input type="text" id="image" name="image" placeholder="http://...">
+                    <input type="text" id="image" name="image" value="{{photoData.image}}" placeholder="http://...">
                     <label>Volcano Type:</label>
                     <select id="type" name="typeVolcano">
                         <option value="Supervolcanoes">Supervolcanoes</option>

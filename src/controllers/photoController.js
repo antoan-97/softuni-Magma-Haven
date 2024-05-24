@@ -25,7 +25,7 @@ router.post('/create', isAuth, async (req, res) => {
         await photoManager.create(photoData);
         res.redirect('/photos')
     } catch (err) {
-        res.render('photos/create', { error: getErrorMessage(err) })
+        res.render('photos/create', { error: getErrorMessage(err), photoData })
     }
 })
 
