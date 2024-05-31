@@ -29,6 +29,10 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
     const { username, email, password, repeatPassword } = req.body;
 
+    if (password !== repeatPassword) {
+        return res.render('users/register', { error: 'Passwords do not match!', username, email });
+    }
+
     try {
         const token = await userManager.register({ username, email, password, repeatPassword });
 
