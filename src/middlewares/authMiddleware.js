@@ -28,3 +28,11 @@ exports.isAuth = (req,res,next) =>{
     }
     next();
 };
+
+exports.isLoggedIn = (req, res, next) => {
+    if (req.user) {
+        // Redirect to 404 page  if user is already logged in
+        return res.render('404');
+    }
+    next();
+};
