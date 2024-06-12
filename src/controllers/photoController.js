@@ -109,7 +109,7 @@ router.get('/search', async (req, res) => {
 
 
 
-router.get('/:photoId/vote', async (req, res) => {
+router.get('/:photoId/vote', isAuth, async (req, res) => {
     const photoId = req.params.photoId;
     const userId = req.user._id;
 
