@@ -1,5 +1,6 @@
 const jwt = require('../lib/jwt');
 const { SECRET } = require('../config/config');
+const photoManager = require('../managers/photoManager');
 
 
 exports.auth = async (req,res,next) => {
@@ -35,4 +36,34 @@ exports.isLoggedIn = (req, res, next) => {
         return res.render('404');
     }
     next();
+};
+
+exports.isOwner = async (req, res, next) => {
+    try {
+        const photoId = req.params.photoId;
+        const photo = await photoManager.getOne(photoId);
+        
+        if (!photo) {
+            console.log(`Photo with ID ${photoId} not found`);
+            return res.render('404');
+        }
+        
+        if (!req.user) {
+            console.log('User is not authenticated');
+            return res.render('404');
+        }
+
+        console.log(`Photo owner: ${String(photo.owner._id)}`);
+        console.log(`Authenticated user: ${String(req.user._id)}`);
+
+        if (String(photo.owner._id) === String(req.user._id)) {
+            return next();
+        } else {
+            console.log(`User ${req.user._id} is not the owner of photo ${photoId}`);
+            return res.render('404');
+        }
+    } catch (error) {
+        console.error(`Error in isOwner middleware: ${error.message}`);
+        return res.render('404', { error: 'An error occurred while checking ownership' });
+    }
 };

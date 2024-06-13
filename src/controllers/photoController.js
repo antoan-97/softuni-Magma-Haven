@@ -1,5 +1,5 @@
 const { getErrorMessage } = require('../utils/errorHelper');
-const { isAuth } = require('../middlewares/authMiddleware');
+const { isAuth, isOwner } = require('../middlewares/authMiddleware');
 
 const photoManager = require('../managers/photoManager');
 const Photo = require('../models/Photo');
@@ -62,7 +62,7 @@ router.get('/:photoId/delete', isAuth, async (req, res) => {
     }
 })
 
-router.get('/:photoId/edit', isAuth, async (req, res) => {
+router.get('/:photoId/edit', isAuth, isOwner, async (req, res) => {
     const photoId = req.params.photoId;
 
     try {
@@ -75,7 +75,7 @@ router.get('/:photoId/edit', isAuth, async (req, res) => {
 });
 
 
-router.post('/:photoId/edit', isAuth, async (req, res) => {
+router.post('/:photoId/edit', isAuth,  isOwner,async (req, res) => {
     const photoId = req.params.photoId
     const photoData = req.body;
     try {
